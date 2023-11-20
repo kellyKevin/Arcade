@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0abdcd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #10bcd3;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .movie-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .movie {
+            width: calc(33.33% - 20px);
+            margin-bottom: 20px;
+            background-color: #16b7c5;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .movie img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .movie-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .movie-title {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .movie-year {
+            color: #777;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="output">
+        <h1>Movie Showcase</h1>
+        <div class="movie-list">
+
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyD6vtDos7dBccm4jRZR7nFv4RMgucnxWfg",
+            authDomain: "kelly2-d0e0c.firebaseapp.com",
+            projectId: "kelly2-d0e0c",
+            storageBucket: "kelly2-d0e0c.appspot.com",
+            messagingSenderId: "586673821546",
+            appId: "1:586673821546:web:ed19cfdfff2c879117f713",
+            measurementId: "G-DHL16T4TG0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const querySnapshot = await getDocs(collection(db, "movies"));
+        const allProducts = document.getElementById('output')
+
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            allProducts.innerHTML += `<a href="spiderman.html" class="movie">
+                <div class="movie-info">
+                    <h2 class="movie-title">${data.movie}</h2>
+                    <p class="movie-year">${data.length}</p>
+                    <p class="movie-year">${data.year}</p>
+                </div>
+            </a>`
+        });
+    </script>
+</body>
+
+</html>
